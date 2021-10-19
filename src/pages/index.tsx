@@ -1,5 +1,5 @@
+import { useCalcurator } from '@/hooks/useCalculator'
 import { css } from '@emotion/react'
-import { useState } from 'react'
 import type { NextPage } from 'next'
 
 type Operators = '+' | '-' | '*' | '/'
@@ -8,52 +8,22 @@ const arr = [...Array(9)].map((_, index: number) => index + 1)
 const symbols: Operators[] = ['+', '-', '*', '/']
 
 const HomePage: NextPage = () => {
-  const [isFirst, setIsFirst] = useState<boolean>(true)
-  const [result, setResult] = useState<number | null>(0)
+  const {
+    firstVal,
+    secondVal,
+    result,
+    operator,
+    setValue,
+    handleOperator,
+    calculate,
+    clear,
+  } = useCalcurator()
 
-  const [first, setFirst] = useState<number>(0)
-  const [second, setSecond] = useState<number>(0)
-  const [oprt, setOprt] = useState<Operators | ''>('')
-
-  const setValue = (number: number) => {
-    if (isFirst) {
-      const newValue = first * 10 + number
-      setFirst(newValue)
-    } else {
-      const newValue = second * 10 + number
-      setSecond(newValue)
-    }
-  }
-
-  const selectOperator = (sym: Operators) => {
-    setOprt(sym)
-    setIsFirst(false)
-  }
-
-  const calculate = () => {
-    if (oprt === '+') {
-      setResult(first + second)
-    } else if (oprt === '-') {
-      setResult(first - second)
-    } else if (oprt === '*') {
-      setResult(first * second)
-    } else if (oprt === '/') {
-      setResult(first / second)
-    }
-  }
-
-  const clear = () => {
-    setResult(null)
-    setIsFirst(true)
-    setFirst(0)
-    setSecond(0)
-    setOprt('')
-  }
   return (
     <div css={container}>
       <div css={inner}>
         <div css={display}>
-          {result ? result : `${first} ${oprt} ${second && second}`}
+          {result ? result : `${firstVal} ${operator} ${secondVal}`}
         </div>
         <div css={flex}>
           <div css={grid}>
@@ -77,12 +47,12 @@ const HomePage: NextPage = () => {
               =
             </button>
           </div>
-          <div css={operator}>
+          <div css={column}>
             {symbols.map((sym) => (
               <button
                 key={sym}
                 css={button}
-                onClick={() => selectOperator(sym)}
+                onClick={() => handleOperator(sym)}
               >
                 {sym}
               </button>
@@ -144,7 +114,7 @@ const button = css`
   }
 `
 
-const operator = css`
+const column = css`
   display: flex;
   flex: 1;
   flex-direction: column;
