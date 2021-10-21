@@ -2,6 +2,7 @@ import { useCalcurator } from '@/hooks/useCalculator'
 import { css } from '@emotion/react'
 
 import type { Operators } from 'src/types'
+import { CalculatorButton } from './CalculatorButton'
 
 const arr = [...Array(9)].map((_, index: number) => index + 1)
 const symbols: Operators[] = ['+', '-', '*', '/']
@@ -26,26 +27,19 @@ export const Calculator: React.VFC = () => {
       <div css={flex}>
         <div css={grid}>
           {arr.map((number) => (
-            <button key={number} css={button} onClick={() => setValue(number)}>
+            <CalculatorButton onClick={() => setValue(number)}>
               {number}
-            </button>
+            </CalculatorButton>
           ))}
-          <button css={button} onClick={clear}>
-            C
-          </button>
-
-          <button css={button} onClick={() => setValue(0)}>
-            0
-          </button>
-          <button css={button} onClick={calculate}>
-            =
-          </button>
+          <CalculatorButton onClick={clear}>C</CalculatorButton>
+          <CalculatorButton onClick={() => setValue(0)}>0</CalculatorButton>
+          <CalculatorButton onClick={calculate}>=</CalculatorButton>
         </div>
         <div css={column}>
           {symbols.map((sym) => (
-            <button key={sym} css={button} onClick={() => handleOperator(sym)}>
+            <CalculatorButton key={sym} onClick={() => handleOperator(sym)}>
               {sym}
-            </button>
+            </CalculatorButton>
           ))}
         </div>
       </div>
@@ -73,20 +67,6 @@ const grid = css`
   justify-content: end;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
-`
-
-const button = css`
-  height: 80px;
-  background-color: #ccc;
-  font-size: 3rem;
-
-  &:hover {
-    opacity: 0.9;
-  }
-
-  &:active {
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.16) inset;
-  }
 `
 
 const column = css`
