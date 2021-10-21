@@ -1,8 +1,10 @@
-import { useCalcurator } from '@/hooks/useCalculator'
 import { css } from '@emotion/react'
 
-import type { Operators } from 'src/types'
 import { CalculatorButton } from './CalculatorButton'
+
+import type { Operators } from 'src/types'
+
+import { useCalcurator } from '@/hooks/useCalculator'
 
 const arr = [...Array(9)].map((_, index: number) => index + 1)
 const symbols: Operators[] = ['+', '-', '*', '/']
@@ -27,7 +29,7 @@ export const Calculator: React.VFC = () => {
       <div css={flex}>
         <div css={grid}>
           {arr.map((number) => (
-            <CalculatorButton onClick={() => setValue(number)}>
+            <CalculatorButton key={number} onClick={() => setValue(number)}>
               {number}
             </CalculatorButton>
           ))}

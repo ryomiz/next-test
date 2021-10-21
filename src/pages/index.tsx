@@ -1,7 +1,8 @@
-import { Calculator } from '@/components/Calculator'
-import { useCalcurator } from '@/hooks/useCalculator'
 import { css } from '@emotion/react'
+
 import type { NextPage } from 'next'
+
+import { Calculator } from '@/components/Calculator'
 
 const HomePage: NextPage = () => {
   return (

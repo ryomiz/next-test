@@ -1,7 +1,14 @@
-import { render } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import { Calculator } from './Calculator'
 
-test('snapshot test', () => {
-  const { asFragment } = render(<Calculator />)
-  expect(asFragment()).toMatchSnapshot()
+describe('Calculator Test', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
+  // スナップショットテスト
+  test('render', () => {
+    const { asFragment } = render(<Calculator />)
+    expect(asFragment()).toMatchSnapshot()
+  })
 })
